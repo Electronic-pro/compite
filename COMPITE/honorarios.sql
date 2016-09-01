@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Servidor: localhost
--- Tiempo de generación: 18-08-2016 a las 21:42:43
+-- Tiempo de generación: 27-08-2016 a las 00:13:11
 -- Versión del servidor: 5.0.51
 -- Versión de PHP: 5.2.6
 
@@ -93,14 +93,15 @@ CREATE TABLE `usuario` (
   `nombre_usuario` varchar(70) NOT NULL,
   `rut_usuario` varchar(45) default NULL,
   `correo_usuario` varchar(45) default NULL,
-  `pw_usuario` int(11) default NULL,
+  `pw_usuario` varchar(11) default NULL,
   `rol_usuario` varchar(45) default NULL,
   `proyecto_usuario` varchar(45) default NULL,
   `telefono_usuario` varchar(45) default NULL,
   PRIMARY KEY  (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- 
 -- Volcar la base de datos para la tabla `usuario`
 -- 
 
+INSERT INTO `usuario` VALUES (1, 'armando', '181818181818', 'armando@compite.cl', 'armando', 'Admin', '1', '1881818181');
