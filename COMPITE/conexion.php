@@ -1,16 +1,8 @@
-<?php
-
-
-		$mysqli = new MySQLi("localhost", "root","", "honorarios");
-		if ($mysqli -> connect_errno) {
-			die( "Fallo la conexión a MySQL: (" . $mysqli -> mysqli_connect_errno() 
-				. ") " . $mysqli -> mysqli_connect_error());
-		}
-		else
-			echo "Conexión exitossa!";
-
-//	$link =mysqli_connect("localhost","root","");
-//	if($link){
-//		mysqli_select_db($link,"academ");
-//	}
+<?
+     $conex=new mysqli("localhost","root","root","honorarios"); //servidor, usuario de base de datos, contraseña del usuario, nombre de base de datos
+  
+  if(mysqli_connect_errno()){
+    echo 'Conexion Fallida : ', mysqli_connect_error();
+    exit();
+  }
 ?>

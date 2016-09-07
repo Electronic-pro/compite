@@ -1,6 +1,6 @@
 <?php 
 //Proceso de conexión con la base de datos
-$conex = new mysqli("localhost","root","","honorarios"); //servidor, usuario de base de datos, contraseña del usuario, nombre de base de datos
+$conex = new mysqli("localhost","bax","bax","honorarios"); //servidor, usuario de base de datos, contraseña del usuario, nombre de base de datos
 if (!$conex) {
 die('Connect Error: '.mysqli_connect_error());
 }

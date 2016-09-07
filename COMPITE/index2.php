@@ -1,5 +1,5 @@
 <?
-$conex = new mysqli("localhost","bax","bax","honorarios"); //servidor, usuario de base de datos, contraseña del usuario, nombre de base de datos
+$conex = new mysqli("localhost","root","root","honorarios"); //servidor, usuario de base de datos, contraseña del usuario, nombre de base de datos
 if (!$conex) {
 die('Connect Error: '.mysqli_connect_error());
 }
@@ -115,7 +115,13 @@ $nombre_usuario=$fila['nombre_usuario'];
 									 <li><a href="usuarios.php">Usuarios</a></li>
 									 </ul>
 					            </li>
-					           		
+					           		 <li><a href="#">Proyectos</a>
+									<ul>
+									 <li><a href="creacion_proyecto.php">Crear Proyecto</a></li>
+									
+									 <li><a href="asignacion_proyecto.php">Asignar Proyecto</a></li>
+									 </ul>
+					            </li>
 					              <li><a href="desconectar_usuario.php">Cerrar sesión</a>
 								</li>         
 							</ul> <!-- /.sf-menu -->

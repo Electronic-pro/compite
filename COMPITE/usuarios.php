@@ -1,5 +1,5 @@
 <?
-$conex = new mysqli("localhost","root","","honorarios"); //servidor, usuario de base de datos, contraseña del usuario, nombre de base de datos
+$conex = new mysqli("localhost","bax","bax","honorarios"); //servidor, usuario de base de datos, contraseña del usuario, nombre de base de datos
 if (!$conex) {
 die('Connect Error: '.mysqli_connect_error());
 }
@@ -187,7 +187,7 @@ $id_usuario = $_SESSION['id_usuario'];
  </br>
   <table width="742" border="0" bgcolor="#CCCCCC">
     <?php
-      $conex=new mysqli("localhost","root","","honorarios"); //servidor, usuario de base de datos, contraseña del usuario, nombre de base de datos
+      $conex=new mysqli("localhost","root","root","honorarios"); //servidor, usuario de base de datos, contraseña del usuario, nombre de base de datos
   
   if(mysqli_connect_errno()){
     echo 'Conexion Fallida : ', mysqli_connect_error();
