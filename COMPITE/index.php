@@ -31,12 +31,12 @@
 				<input type="password" required placeholder="Ingrese Password" name="pw_usuario">
 				<input type="submit" value="Ingresar" class="enviar">
 			</form>
-			<span>¿Olvidaste tu contraseña? <a href="#">Recupérala</a></span>
+			
 		</article>	
 	</section>
 	<footer>
 		<p>
-		Diseñado por Electronic-Pro
+		
 		</p>
 	</footer>
 	<script type="text/javascript" src="js/codigo.js"></script>

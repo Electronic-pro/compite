@@ -103,7 +103,7 @@ $nombre_usuario=$fila['nombre_usuario'];
 					            		<li><a href="comprobante.html">Comprobante de Pago</a></li>
 					            		<li><a href="project-image.html">Ficha de Honorario</a></li>
 					            		<li><a href="project-slideshow.html">Registro depositos</a></li>
-					            		<li><a href="project-slideshow.html">Solicitud pago de honrarios</a></li>
+					            		<li><a target="_blank" href="solicitud_pago.php">Solicitud pago de honrarios</a></li>
 					            		<li><a href="project-slideshow.html">planilla seguimiento reuniones</a></li>
 					            	</ul>
 					            </li>

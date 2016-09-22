@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <meta http-equiv="Refresh" content="0.5;usuarios.php">
+     <meta http-equiv="Refresh" content="0.2;usuarios.php">
 
 </head><!--/head-->
 
@@ -29,6 +29,9 @@ if ($fila[2] == $rut_usuario) {
 else{
 $query="INSERT INTO usuario (nombre_usuario,rut_usuario,correo_usuario,pw_usuario,telefono_usuario,rol_usuario) VALUES ('$nombre_usuario','$rut_usuario','$correo_usuario','$pw_usuario','$telefono_usuario','$rol_usuario')";
 		$resultado=$conex->query($query);
+
+		$query2="INSERT INTO asignacion(nombre_usuario,rut_usuario) VALUES ('$nombre_usuario','$rut_usuario')";
+		$resultado3=$conex->query($query2);
 }
 
 ?>

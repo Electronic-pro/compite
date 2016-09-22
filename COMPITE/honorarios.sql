@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Servidor: localhost
--- Tiempo de generación: 27-08-2016 a las 00:13:11
+-- Tiempo de generación: 22-09-2016 a las 20:37:53
 -- Versión del servidor: 5.0.51
 -- Versión de PHP: 5.2.6
 
@@ -12,6 +12,31 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- 
 -- Base de datos: `honorarios`
 -- 
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura de tabla para la tabla `asignacion`
+-- 
+
+CREATE TABLE `asignacion` (
+  `id` int(11) NOT NULL auto_increment,
+  `nombre_usuario` varchar(70) NOT NULL,
+  `rut_usuario` varchar(12) NOT NULL,
+  `programa` varchar(70) NOT NULL,
+  `proyecto` varchar(70) NOT NULL,
+  `estado` varchar(70) NOT NULL default 'Desactivado',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+-- 
+-- Volcar la base de datos para la tabla `asignacion`
+-- 
+
+INSERT INTO `asignacion` VALUES (5, 'adrian', '17.631.242-4', 'EM-03', '', 'Desactivado');
+INSERT INTO `asignacion` VALUES (6, 'bastian garcia aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '18.428.078-7', '', '', 'Desactivado');
+INSERT INTO `asignacion` VALUES (7, 'juanito', '8.451.101-3', '', '', 'Desactivado');
+INSERT INTO `asignacion` VALUES (8, 'docente', '16.269.355-7', '', '', 'Desactivado');
 
 -- --------------------------------------------------------
 
@@ -73,7 +98,7 @@ CREATE TABLE `proyectos` (
   `nombre_proyecto` varchar(45) default NULL,
   `inicio_proyecto` varchar(45) default NULL,
   `termino_proyecto` varchar(45) default NULL,
-  `Ciudad_proyecto` varchar(45) default NULL,
+  `ciudad_proyecto` varchar(45) default NULL,
   PRIMARY KEY  (`codigo_proyecto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -81,6 +106,9 @@ CREATE TABLE `proyectos` (
 -- Volcar la base de datos para la tabla `proyectos`
 -- 
 
+INSERT INTO `proyectos` VALUES (123, 'Proyecto T', '2016-09-10', '2016-11-10', 'Osorno');
+INSERT INTO `proyectos` VALUES (144, 'Proyecto z', '2016-09-08', '2016-11-09', 'Osorno');
+INSERT INTO `proyectos` VALUES (444, 'Proyecto h', '2016-09-08', '2016-11-18', 'Osorno');
 
 -- --------------------------------------------------------
 
@@ -90,18 +118,21 @@ CREATE TABLE `proyectos` (
 
 CREATE TABLE `usuario` (
   `id_usuario` int(11) NOT NULL auto_increment,
-  `nombre_usuario` varchar(70) NOT NULL,
-  `rut_usuario` varchar(45) default NULL,
+  `nombre_usuario` varchar(50) NOT NULL,
+  `rut_usuario` varchar(12) default NULL,
   `correo_usuario` varchar(45) default NULL,
   `pw_usuario` varchar(11) default NULL,
   `rol_usuario` varchar(45) default NULL,
-  `proyecto_usuario` varchar(45) default NULL,
+  `proyecto` varchar(45) default NULL,
   `telefono_usuario` varchar(45) default NULL,
+  `programa` varchar(30) default NULL,
+  `estado` varchar(30) default 'Desactivado',
   PRIMARY KEY  (`id_usuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
 
 -- 
 -- Volcar la base de datos para la tabla `usuario`
 -- 
 
-INSERT INTO `usuario` VALUES (1, 'armando', '181818181818', 'armando@compite.cl', 'armando', 'Admin', '1', '1881818181');
+INSERT INTO `usuario` VALUES (1, 'armando', '10.666.664-2', 'armando@compite.cl', 'armando', 'Admin', '1', '9281237175', '', '');
+INSERT INTO `usuario` VALUES (19, 'juan', '8.451.101-3', 'juan@compite.cl', 'juanito', 'Profesor', 'Proyecto z', '1231233', 'EM-01', 'Activado');
