@@ -1,5 +1,8 @@
 <?
- require('conexion.php');
+$conex = new mysqli("localhost","root","root","honorarios"); //servidor, usuario de base de datos, contraseña del usuario, nombre de base de datos
+if (!$conex) {
+die('Connect Error: '.mysqli_connect_error());
+}
 
 
 session_start();
@@ -14,10 +17,19 @@ self.location = "index.php"
 //Validar si se está ingresando con sesión correctamente
 $id_usuario = $_SESSION['id_usuario'];
 
+        $consulta= "SELECT nombre_usuario,rol_usuario FROM usuario WHERE id_usuario='".$id_usuario."'"; 
+$resultado= mysqli_query($conex,$consulta) or die (mysqli_error());
+$fila=mysqli_fetch_array($resultado);
+$rol=$fila['rol_usuario'];
+$nombre_usuario=$fila['nombre_usuario'];
 
 ?>
 
-<!DOCTYPE html>
+
+
+
+
+
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
@@ -135,103 +147,98 @@ $id_usuario = $_SESSION['id_usuario'];
 
 		</div> <!-- /.container -->
 	</header> <!-- /.site-header -->
-<br><br><br><br> <br><br>
-	
-<section class="centro">
 
- <center>
+	</br></br></br>
+<section class="centro">
+</br>
+</br>
+</br>
+  <img align= "right" src="img/u.png" alt="Medigo by templatemo">
+	<center>
 			
    <table width="742" border="0" bgcolor="#CCCCCC">
    <tr>
    <td width="600">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
-      <td width="1000"><h1>Modulo Usuarios</h1></td>
+      <td width="1000"><h1>Modulo Asignacion de proyectos</h1></td>
       
 </tr>
-<form method="POST" name="form1" onSubmit="javascript:return Rut(document.form1.rut_usuario.value)" action="guardar_usuario.php">
+
+
+<?php
+	
+	
+	
+	$id_usuario=$_GET['id_usuario'];
+	
+	 $consulta= "SELECT nombre_usuario,rut_usuario,programa,proyecto,estado FROM usuario WHERE id_usuario='".$id_usuario."'"; 
+$resultado= mysqli_query($conex,$consulta) or die (mysqli_error());
+$fila=mysqli_fetch_array($resultado);
+
+$nombre_usuario=$fila['nombre_usuario'];
+$rut_usuario=$fila['rut_usuario'];
+
+
+ $query2="SELECT * FROM proyectos";
+    $resultado2=$conex->query($query2);
+         
+ $combobit="";
+    while ($row = $resultado2->fetch_array()) 
+    {
+        $combobit .="<option>".$row['nombre_proyecto']."</option>"; //concatenamos el los options para luego ser insertado en el HTML
+    }
+	
+?>
+<form method="POST"  >
   <table width="940" border="1" bgcolor="#CCCCCC">
+  	 <tr>
+    	
+      <td width="84">ID </td>
+      <td width="3">:</td>
+      <td width="159" ><input type="text" value="<?php echo $id_usuario; ?>" id="id_usuario" readonly></td>
+      </tr>
     <tr>
+    	
       <td width="84">Nombre completo </td>
       <td width="3">:</td>
-      <td width="159" ><input type="text" name="nombre_usuario" maxlength="50" required /></td>
-      
-      <td width="114">Rut</td>
+      <td width="159" ><input type="text" value="<?php echo $nombre_usuario; ?>"id="nombre_usuario" maxlength="50" required readonly /></td>    
+    <tr>
+    	<td width="84">Rut </td>
       <td width="3">:</td>
-      <td width="325"><input type="text" name="rut_usuario" maxlength="12"  required /></td>
+      <td width="159" ><input type="text" value="<?php echo $rut_usuario; ?>" id="rut_usuario" maxlength="50" required readonly /></td>
     </tr>
-     <tr>
-      <td width="84">Correo </td>
+     </tr>
+      <tr>
+      <td width="114">Proyecto</td>
       <td width="3">:</td>
-      <td width="159" ><input type="email" name="correo_usuario"  maxlength="45" required/></td>
-      
-      <td width="114">Contraseña</td>
-      <td width="3">:</td>
-      <td width="325"><input type="password" name="pw_usuario" maxlength="45"  required /></td>
-    </tr>
-       <tr>
-      <td width="84">Telefono </td>
-      <td width="3">:</td>
-      <td width="159" ><input type="number" name="telefono_usuario" min="0" max="999999999" required /></td>
-      
-      <td width="114">Rol</td>
-      <td width="3">:</td>
-      <td width="325"><select name="rol_usuario">
-        <option>Ingeniero</option>
-        <option>Tutor</option>
-        <option>Profesor</option>
+      <td width="325"><select id="proyecto">
+      <option>	<?echo $combobit;?></option>
       </select></td>
     </tr>
-
+     <tr>
+      <td width="84">Programa </td>
+      <td width="3">:</td>
+      <td width="159" ><select id="programa">
+      	<option>EM-01</option>
+      	<option>EM-02</option>
+      	<option>EM-03</option>
+      </select></td>
+  </tr>
+      <tr>
+      <td width="114">Estado</td>
+      <td width="3">:</td>
+      <td width="325"><select id="estado">
+      	<option>Desactivado</option>
+      	<option>Activado</option>
+      </select></td>
+    </tr>
+	<tr>
+		<td> <input type="button" value="guardar" onclick="asignar();"></td>
+	</tr>
 
     
   </table>
-<div class="users">
  </br>
-  <table width="742" border="0" bgcolor="#CCCCCC">
- <? 
-    $query="SELECT *  FROM usuario where rol_usuario!='Admin'";
-
-    $resultado=$conex->query($query);
-    
-?>
-    <tr>
-      <td width="100" bgcolor="#CCCCCC">&nbsp;ID</td>
-      <td width="144" bgcolor="#CCCCCC">&nbsp;Nombre Completo</td>
-      <td width="144" bgcolor="#CCCCCC">&nbsp;E-mail</td>
-      <td width="144" bgcolor="#CCCCCC">&nbsp;Rut</td>
-      <td width="144" bgcolor="#CCCCCC">&nbsp;Telefono</td>
-      <td width="140" bgcolor="#CCCCCC">&nbsp;Rol</td>
-      <td width="140" bgcolor="#CCCCCC">&nbsp;Opciones</td>
-    </tr>
-    <tr>
-      <?php while($row=$resultado->fetch_assoc()){ ?>
-      <td><input type="text"  value="<?php echo $row['id_usuario'];?>"   readonly/></td>
-      <td><input type="text"  value="<?php echo $row['nombre_usuario'];?>"   readonly/></td>
-      <td><input type="text"  value="<?php echo $row['correo_usuario'];?>"   readonly/></td>
-       <td><input type="text"  value="<?php echo $row['rut_usuario'];?>"   readonly/></td>
-      <td><input type="text"  value="<?php echo $row['telefono_usuario'];?>"   readonly/></td>
-      <td><input type="text"  value="<?php echo $row['rol_usuario'];?>"   readonly/></td>
-      <td><a href="eliminar.php?id_usuario=<?php echo $row['id_usuario'];?>">Eliminar </a></td>
-       <td> <input  type="button" onClick="rellenarModal2('<?php echo $row['id_usuario']; ?>');"data-toggle="modal" data-target="#modal2" value="Modificar"> </td>
-    </tr>
-    <?php } ?>
-
-    <td>
-    </br>
-    </td>
-    <tr>
-      <td>&nbsp;</td>
-      
-      <td>
-        <input type="submit" name="Submit" value="Agregar" />
-        
-      </td>
-      <td>&nbsp;</td>
-    </tr>
-</table>
-</div>
 </form>
-
-
 </br>
   
     <br />
@@ -239,79 +246,6 @@ $id_usuario = $_SESSION['id_usuario'];
   <br />
 </center>
 </section>
-<!-- Modal -->
-<div id="modal2" class="modal fade" role="dialog">
-	<br><br><br><br><br>
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Usuario:</h4>
-      </div>
-      <div class="modal-body">
- <form method="POST" onSubmit="modUsuario();" >
-
-<table width="9" border="1" bgcolor="#CCCCCC">
-     <tr>
-      
-      <td width="84">ID </td>
-      <td width="3">:</td>
-      <td width="159" ><input type="text" value="" name="id_usuario2"  id="id_usuario2" required readonly ></td>
-      </tr>
-      <tr>
-      <td width="84">Nombre completo </td>
-      <td width="3">:</td>
-      <td width="159" ><input type="text" value="" name="nombre_usuario2"  id="nombre_usuario2"  maxlength="50" /></td> 
-      </tr> 
-        <tr>
-      <td width="84">Email </td>
-      <td width="3">:</td>
-      <td width="159" ><input type="email" value=""name="correo_usuario2"  id="correo_usuario2" maxlength="50"   /></td> 
-      </tr>   
-   <tr>
-      <td width="84">Rut </td>
-      <td width="3">:</td>
-      <td width="159" ><input type="text"value="" name="rut_usuario2"  id="rut_usuario2"  maxlength="50" required readonly /></td>
-    </tr> 
-      <tr>
-      <td width="84">Password </td>
-      <td width="3">:</td>
-      <td width="159" ><input type="password"value="" name="pw_usuario2" id="pw_usuario2"  maxlength="50" required  /></td>
-    </tr>
-        <tr>
-      <td width="84">Numero </td>
-      <td width="3">:</td>
-      <td width="159" ><input type="number" name="telefono_usuario2" id="telefono_usuario2" min="0" max="999999999"  required  /></td>
-    </tr>
-
-      <tr>
-       <td width="114">Rol</td>
-      <td width="3">:</td>
-      <td width="325"><select name="rol_usuario2" id="rol_usuario2" >
-        <option>Ingeniero</option>
-        <option>Tutor</option>
-        <option>Profesor</option>
-      </select></td>	
-    </tr>
-  <tr>
-    <td> <input type="submit"></td>
-  </tr>
-  </table>
-</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-</div>
-
-<!-- Modal -->
 
 
 	<footer class="site-footer">
@@ -340,32 +274,9 @@ $id_usuario = $_SESSION['id_usuario'];
 
 	<!-- Scripts -->
 	<script src="js/min/plugins.min.js"></script>
+		<script src="js/acciones.js"></script>
 	<script src="js/validarut.js"></script>
-	<script src="js/acciones.js"></script>
 	<script src="js/min/medigo-custom.min.js"></script>
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- Modal -->
-<div id="modal2" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Usuario:</h4>
-      </div>
-      <div class="modal-body">
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- Modal -->
 </body>
 </html>

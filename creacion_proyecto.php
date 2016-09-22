@@ -1,8 +1,5 @@
 <?
-$conex = new mysqli("localhost","bax","bax","honorarios"); //servidor, usuario de base de datos, contraseña del usuario, nombre de base de datos
-if (!$conex) {
-die('Connect Error: '.mysqli_connect_error());
-}
+ require('conexion.php');
 
 
 session_start();
@@ -152,16 +149,18 @@ $nombre_usuario=$fila['nombre_usuario'];
     <tr>
       <td width="141"><strong>Codigo de Proyecto:</strong></td>
       <td width="144"><label ></label>
-      <input type="text" id="codigo_proyecto" required/></td>
+      <input type="number"min="0" max="999" id="codigo_proyecto"  required/></td>
       <td width="147"><strong>Nombre de Proyecto:</strong></td>
       <td width="151"><label for="textfield2"></label>
-      <input type="text" id="nombre_proyecto" required/></td>
+      <input type="text" id="nombre_proyecto" maxlength="45" required/></td>
     </tr>
     <tr>
       <td><strong>Fecha de Inicio</strong></td>
-      <td><input type="date" id="inicio_proyecto" required/></td>
+
+      <td><input required type="date" id="inicio_proyecto"  step="1" min="<?php echo date("Y-m-d");?>"value="<?php echo date("Y-m-d");?>"></td>
       <td><strong>Fecha de Termino:</strong></td>
-      <td><input type="date" id="termino_proyecto"  required/></td>
+
+      <td><input required type="date"  id="termino_proyecto"  min="<?php echo date("Y-m-d", strtotime(" 2 month"));?>" value="<?php echo date("Y-m-d");?>"></td>
     </tr>
     <tr>
       <td><strong>Ciudad</strong></td>
@@ -193,7 +192,7 @@ $nombre_usuario=$fila['nombre_usuario'];
 <div class="tabla">
     <table width="700" border="0" bgcolor="#CCCCCC">
     <?php
- require('conexion.php');
+
     
     $query="SELECT *  FROM proyectos";
 
